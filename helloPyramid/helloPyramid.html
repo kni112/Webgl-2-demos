@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="nb">
+
+<head>
+    <meta charset="utf-8">
+    <title>WebGL Hello Pyramid</title>
+    <link rel="stylesheet" href="../../base/webgl.css" type="text/css">
+    <script src="../../base/lib/cuon-matrix.js"></script>
+    <script src="../../base/lib/gl-matrix.js"></script>
+</head>
+
+<body>
+    <div style="top:0px; left:15px; width:100%; text-align:left; color:black;" class="ui">
+        <h2></h2>
+        FPS: <span id="fps">--</span><br>
+        WASD Kamerastyring<br>
+        VB Zoom<br>
+        R Reset kamera<br>
+    </div>
+    <!-- SHADERS -->
+    <script id="base-vertex-shader" type="x-shader/x-vertex">#version 300 es
+        in vec3 aVertexPosition;
+        in vec4 aVertexColor;
+        uniform mat4 uModelViewMatrix;
+        uniform mat4 uProjectionMatrix;
+        out lowp vec4 vColor;
+        void main(void) {
+            gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 1.0);
+            vColor = aVertexColor;
+        }
+    </script>
+    <script id="base-fragment-shader" type="x-shader/x-fragment">#version 300 es
+    precision mediump float;
+    in lowp vec4 vColor;
+    out vec4 fragColor;
+    void main(void) {
+        fragColor = vColor;
+    }
+</script>
+
+    <script id="uniform-vertex-shader" type="x-shader/x-vertex">#version 300 es
+    in vec3 aVertexPosition;
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+    void main(void) {
+        gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 1.0);
+    }
+</script>
+    <script id="uniform-fragment-shader" type="x-shader/x-fragment">#version 300 es
+    precision mediump float;
+    uniform vec4 uColor;
+    out vec4 uniformColor;
+    void main(void) {
+        uniformColor = uColor;
+    }
+</script>
+    <!-- SHADER som håndterer posisjon, farge og tekstur. -->
+    <script id="texture-vertex-shader" type="x-shader/x-vertex">#version 300 es
+        in vec4 aVertexPosition;
+        in vec4 aVertexColor;
+        in vec2 aVertexTextureCoordinate;
+        uniform mat4 uModelViewMatrix;
+        uniform mat4 uProjectionMatrix;
+
+        out highp vec2 vTextureCoordinate;
+        out lowp vec4 vColor;
+        void main() {
+            gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+            vTextureCoordinate = aVertexTextureCoordinate;
+            vColor = aVertexColor;
+            gl_PointSize = 10.0;    //Merk: Kun i bruk når man tegner POINTS
+        }
+    </script>
+
+    <script id="texture-fragment-shader" type="x-shader/x-fragment">#version 300 es
+        precision mediump float;
+        in lowp vec4 vColor;
+        in highp vec2 vTextureCoordinate;
+        uniform vec4 uColor;
+        uniform sampler2D uSampler;
+        out lowp vec4 fragColor;
+        void main() {
+            fragColor = uColor * vColor * texture(uSampler, vec2(vTextureCoordinate.s, vTextureCoordinate.t));
+        }
+    </script>
+    <script type="module">
+        //Bruker strict-mode, betyr bl.a. at variabler må deklareres før bruk, se https://www.w3schools.com/js/js_strict.asp
+        'use strict';
+        import { main } from "./helloPyramid.js";
+        main();
+    </script>
+</body>
+
+</html>

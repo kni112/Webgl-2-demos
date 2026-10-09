@@ -1,0 +1,20 @@
+# Editor settings
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies
+node_modules/
+
+# Temporary files
+*.log
+*.tmp
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
