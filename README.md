@@ -9,7 +9,7 @@ The project explores fundamental computer graphics concepts, including 3D geomet
 
 ## Live Demo
 
-**[Launch Interactive Demo](https://kni112.github.io/webgl-pyramid/)**
+**[Launch Interactive Demo](https://kni112.github.io/Webgl-2-demos/helloPyramid/helloPyramid.html)**
 
 ## Features
 
