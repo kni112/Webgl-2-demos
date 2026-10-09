@@ -1,8 +1,8 @@
-import {WebGLCanvas} from '../../base/helpers/WebGLCanvas.js';
-import {WebGLShader} from '../../base/helpers/WebGLShader.js';
-import {Camera} from '../../base/helpers/Camera.js';
-import {Stack} from '../../base/helpers/Stack.js';
-import {ImageLoader} from '../../base/helpers/ImageLoader.js';
+import {WebGLCanvas} from '../base/helpers/WebGLCanvas.js';
+import {WebGLShader} from '../base/helpers/WebGLShader.js';
+import {Camera} from '../base/helpers/Camera.js';
+import {Stack} from '../base/helpers/Stack.js';
+import {ImageLoader} from '../base/helpers/ImageLoader.js';
 
 /**
  * Et WebGL-program med to shaderpar som tegner en scene
@@ -16,9 +16,9 @@ export function main() {
 	// Starter med å laste teksturer:
 	let imageLoader = new ImageLoader();
 	let textureUrls = [
-		'../../base/textures/pyramidetekstur.png',
-		'../../base/textures/chess_pattern.png', 
-		'../../base/textures/chess_pattern_green_background.png' 
+		'../base/textures/pyramidetekstur.png',
+		'../base/textures/chess_pattern.png', 
+		'../base/textures/chess_pattern_green_background.png' 
 		];
 	console.log(textureUrls);
 	imageLoader.load((textureImages) => {
